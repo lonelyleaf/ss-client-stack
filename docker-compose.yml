@@ -1,0 +1,15 @@
+version: '2'
+services:
+  ssclient:
+    build:
+      context: ss-client/.
+    ports:
+    - 1080:1080
+    command: "-s 45.78.7.162 -p 8388 -b 0.0.0.0 -l 1080 -m aes-256-cfb -k SdVi0kDn"
+  hao-privoxy:
+    build:
+      context: privoxy/.
+    ports:
+     - 2080:2080
+    depends_on:
+    - ssclient
