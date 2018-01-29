@@ -5,7 +5,7 @@ services:
       context: ss-client/.
     ports:
     - 1080:1080
-    command: "-s 45.78.7.162 -p 8388 -b 0.0.0.0 -l 1080 -m aes-256-cfb -k SdVi0kDn"
+    command: "-c /etc/sslocal.json"
   hao-privoxy:
     build:
       context: privoxy/.

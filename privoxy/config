@@ -1,2 +1,2 @@
-forward-socks5 / 127.0.0.1:1080 .
-listen-address 127.0.0.1:2080
+forward-socks5 / ssclient:1080 .
+listen-address 0.0.0.0:2080
