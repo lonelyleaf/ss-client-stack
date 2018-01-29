@@ -58,3 +58,31 @@ you can use curl,it's easy:
 ```bash
 curl -x localhost:2080 www.google.com
 ```
+
+## Ues with kcp
+
+```json
+{
+  "localaddr": ":8388",
+  "remoteaddr": "server addr",
+  "key": "your key",
+  "crypt": "aes",
+  "mode": "fast",
+  "conn": 1,
+  "autoexpire": 60,
+  "mtu": 1350,
+  "sndwnd": 1024,
+  "rcvwnd": 1024,
+  "datashard": 10,
+  "parityshard": 3,
+  "dscp": 0,
+  "nocomp": false,
+  "acknodelay": false,
+  "nodelay": 0,
+  "interval": 20,
+  "resend": 2,
+  "nc": 1,
+  "sockbuf": 4194304,
+  "keepalive": 10
+}
+```
