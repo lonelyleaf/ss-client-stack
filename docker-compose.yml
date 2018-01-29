@@ -13,3 +13,9 @@ services:
      - 2080:2080
     depends_on:
     - ssclient
+  kcptun:
+    build:
+      context: kcp/.
+    command: "-c /etc/kcp.json"
+    depends_on:
+    - ssclient

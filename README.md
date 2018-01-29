@@ -53,7 +53,7 @@ docker-compose build
 docker-compose up -d
 ```
 
-## test sslocal with http proxy
+## Test sslocal with http proxy
 you can use curl,it's easy:
 ```bash
 curl -x localhost:2080 www.google.com

@@ -1,2 +1,3 @@
 .idea/
-ss-client/sslocal.json
+ss-client/*.json
+kcp/kcp.json
