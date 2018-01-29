@@ -1,4 +1,4 @@
 FROM xtaci/kcptun
 
-ENTRYPOINT["./client_darwin_amd64"]
+ENTRYPOINT ["/bin/client"]
 COPY kcp.json /etc/kcp.json
