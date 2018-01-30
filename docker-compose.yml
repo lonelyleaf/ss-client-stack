@@ -15,7 +15,7 @@ services:
     ports:
     - 2080:2080
     volumes:
-    - ./config/privoxy-config:/etc/privoxy/config
+    - ./config/privoxy-config:/etc/privoxy/privoxy.config
     depends_on:
     - ssclient
   kcptun:
