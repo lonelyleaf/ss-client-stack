@@ -56,6 +56,9 @@ docker-compose up -d
 ## Test sslocal with http proxy
 you can use curl,it's easy:
 ```bash
+#test socks5 proxy 
+curl --socks5-hostname localhost:1080 www.google.com
+#test http proxy 
 curl -x localhost:2080 www.google.com
 ```
 
