@@ -7,8 +7,8 @@ services:
     - 1080:1080
     restart: always
     volumes:
-    - ./configs/sslocal-config.json:/etc/sslocal.json
-    #- ./configs/sslocal-kcp-config.json:/etc/sslocal.json
+    #- ./configs/sslocal-config.json:/etc/sslocal.json
+    - ./configs/sslocal-kcp-config.json:/etc/sslocal.json
     command: "-c /etc/sslocal.json"
   hao-privoxy:
     build:
