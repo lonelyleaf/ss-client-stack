@@ -1,5 +1,7 @@
 # ss-client-stack
-Shadowsocks client stack for linux server,using docker-compose.
+Shadowsocks client stack integrated kcp and privoxy for linux server,using docker-compose.
+
+使用docker-compose集成了kcp和privoxy的shadowsocks客户端，主要方便服务器科学上网。
 
 ## Usage
 
@@ -8,7 +10,7 @@ Clone this repo in your server
 git clone https://github.com/lonelyleaf/ss-client-stack.git
 ```
 
-Install docker and docker-compose,see [install docker-compose](https://docs.docker.com/compose/install/)
+Install docker and docker-compose,if you have installed,skip this step.see [install docker-compose](https://docs.docker.com/compose/install/)
 and [install docker](https://docs.docker.com/install/)
 
 In centos,you may use:
@@ -24,8 +26,13 @@ sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-c
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-Write you own `sslocal.json` file in `ss-client` folder,like:
+All the config files are in `configs` folder.You need to **edit them by your owm**.
+
+For `shadowsocks`,edit`sslocal-config.json`.If you use shadowsocks with `kcp`,you need to 
+edit both `sslocal-kcp-config.json` and `kcp-config.json`,and the `server` in `sslocal-kcp-config.json`
+**must** be `kcptun`!!
 ```json
+//sslocal-config.json,edit server、port、password
 {
     "server": "1.2.3.4",
     "server_port": 8989,
@@ -36,56 +43,33 @@ Write you own `sslocal.json` file in `ss-client` folder,like:
     "local_port": 1080,
     "workers": 2
 }
+
+//sslocal-kcp-config.json,"server" must be "kcptun"
+{
+    "server": "kcptun",
+    "server_port": 8989,
+    .......
+}
 ```
 
-Then run by docker-compose:
+Then start service by docker-compose:
 ```bash
 docker-compose up -d
 ```
 
-If need update the sslocal config:
+If need change configs,after configs files are changed,:
 ```bash
 #stop your service
 docker-compose down
-#rebuild your image
-docker-compose build
 #start service
 docker-compose up -d
 ```
 
-## Test sslocal with http proxy
+## Test whether shadowsocks works
 you can use curl,it's easy:
 ```bash
 #test socks5 proxy 
 curl --socks5-hostname localhost:1080 www.google.com
 #test http proxy 
 curl -x localhost:2080 www.google.com
-```
-
-## Ues with kcp
-
-```json
-{
-  "localaddr": ":8388",
-  "remoteaddr": "server addr",
-  "key": "your key",
-  "crypt": "aes",
-  "mode": "fast",
-  "conn": 1,
-  "autoexpire": 60,
-  "mtu": 1350,
-  "sndwnd": 1024,
-  "rcvwnd": 1024,
-  "datashard": 10,
-  "parityshard": 3,
-  "dscp": 0,
-  "nocomp": false,
-  "acknodelay": false,
-  "nodelay": 0,
-  "interval": 20,
-  "resend": 2,
-  "nc": 1,
-  "sockbuf": 4194304,
-  "keepalive": 10
-}
 ```
