@@ -1,0 +1,10 @@
+{
+  "server": "server addr",
+  "server_port": 443,
+  "method": "aes-256-cfb",
+  "password": "your pass",
+  "fast_open": false,
+  "local_address": "0.0.0.0",
+  "local_port": 1080,
+  "workers": 2
+}

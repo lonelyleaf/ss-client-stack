@@ -1,0 +1,2 @@
+forward-socks5 / ssclient:1080 .
+listen-address 0.0.0.0:2080
