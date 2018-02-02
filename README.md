@@ -1,38 +1,39 @@
 # ss-client-stack
-Shadowsocks client stack integrated kcp and privoxy for linux server,using docker-compose.
-
 使用docker-compose集成了kcp和privoxy的shadowsocks客户端，主要方便服务器科学上网。
 
-## Usage
+[English](README_en.md)
 
-Clone this repo in your server
+## 如何使用
+
+下载这个仓库到你的主机
 ```bash
 git clone https://github.com/lonelyleaf/ss-client-stack.git
 ```
 
-Install docker and docker-compose,if you have installed,skip this step.see [install docker-compose](https://docs.docker.com/compose/install/)
-and [install docker](https://docs.docker.com/install/)
+安装docker和docker-compose，如果已经安装可以跳过此步。具体如何安装可以参考 [安装docker-compose](https://docs.docker.com/compose/install/)
+和 [安装docker](https://docs.docker.com/install/)
 
-In centos,you may use:
+在centos上，可以使用下面的命令:
 ```bash
-#install docker
+#安装docker
 sudo curl -fsSL get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
-#start docker
+#启动docker
 sudo systemctl start docker
 sudo systemctl enable docker
-#install docker-compose
+#安装docker-compose
 sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-All the config files are in `configs` folder.You need to **edit them by your owm**.
+所有的配置文件都在`configs`文件夹中，你需要**自己修改**配置文件。
 
-For `shadowsocks`,edit`sslocal-config.json`.If you use shadowsocks with `kcp`,you need to 
-edit both `sslocal-kcp-config.json` and `kcp-config.json`,and the `server` in `sslocal-kcp-config.json`
-**must** be `kcptun`!!
+如果只使用`shadowsocks`,修改`sslocal-config.json`就可以了。如果还需要用`kcp`,就需要修改
+`sslocal-kcp-config.json` 和 `kcp-config.json`两个文件，同时`sslocal-kcp-config.json`中的
+`server`参数**必须**是`kcptun`
+
 ```json
-//sslocal-config.json,edit server、port、password
+//sslocal-config.json,修改server、port、password
 {
     "server": "1.2.3.4",
     "server_port": 8989,
@@ -44,7 +45,7 @@ edit both `sslocal-kcp-config.json` and `kcp-config.json`,and the `server` in `s
     "workers": 2
 }
 
-//sslocal-kcp-config.json,"server" must be "kcptun"
+//sslocal-kcp-config.json,"server"参数必须是"kcptun"
 {
     "server": "kcptun",
     "server_port": 8989,
@@ -52,12 +53,12 @@ edit both `sslocal-kcp-config.json` and `kcp-config.json`,and the `server` in `s
 }
 ```
 
-Then start service by docker-compose:
+用docker-compose启动服务:
 ```bash
 docker-compose up -d
 ```
 
-If need change configs,after configs files are changed,:
+当你需要改变配置时:
 ```bash
 #stop your service
 docker-compose down
@@ -65,8 +66,8 @@ docker-compose down
 docker-compose up -d
 ```
 
-## Test whether shadowsocks works
-you can use curl,it's easy:
+## 测试shadowsocks是否正常工作
+使用curl，非常简单:
 ```bash
 #test socks5 proxy 
 curl --socks5-hostname localhost:1080 www.google.com
