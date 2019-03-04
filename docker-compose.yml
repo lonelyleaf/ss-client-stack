@@ -1,7 +1,7 @@
 version: '2'
 services:
   ssclient:
-    image: lonelyleaf/ss-stack-shadowsocks-client
+    image: lonelyleaf/ss-stack-shadowsocks-client:0.3
     ports:
       - 1080:1080
     restart: always
@@ -9,8 +9,10 @@ services:
       #- ./configs/sslocal-config.json:/etc/sslocal.json
       - ./configs/sslocal-kcp-config.json:/etc/sslocal.json
     command: "-c /etc/sslocal.json"
+    depends_on:
+      - kcptun
   privoxy:
-    image: lonelyleaf/ss-stack-privoxy
+    image: lonelyleaf/ss-stack-privoxy:0.2
     ports:
       - 2080:2080
     restart: always
@@ -19,10 +21,8 @@ services:
     depends_on:
       - ssclient
   kcptun:
-    image: lonelyleaf/ss-stack-kcp-client
+    image: lonelyleaf/ss-stack-kcp-client:0.2
     command: "-c /etc/kcp.json"
     restart: always
     volumes:
       - ./configs/kcp-config.json:/etc/kcp.json
-    depends_on:
-      - ssclient
