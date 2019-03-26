@@ -1,6 +1,8 @@
 # ss-client-stack
 使用docker-compose集成了kcp和privoxy的shadowsocks客户端，主要方便服务器科学上网。
 
+如果要再k8s上部署，可以参考[k8s](k8s)下的内容
+
 [English](README_en.md)
 
 ## 如何使用

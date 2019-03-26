@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: privoxy
+  namespace: ss-stack
+spec:
+  ports:
+    - port: 2080
+      targetPort: 2080
+      protocol: TCP
+  selector:
+    app: privoxy
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: privoxy
+  namespace: ss-stack
+spec:
+  template:
+    metadata:
+      labels:
+        app: privoxy
+    spec:
+      containers:
+        - name: privoxy
+          image: lonelyleaf/ss-stack-privoxy:1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 2080
+              name: http-proxy
+              protocol: TCP
+          readinessProbe:
+            periodSeconds: 5
+            initialDelaySeconds: 10
+            tcpSocket:
+              port: 2080
+          livenessProbe:
+            periodSeconds: 5
+            initialDelaySeconds: 10
+            tcpSocket:
+              port: 2080
+          volumeMounts:
+            - mountPath: /etc/privoxy
+              name: privoxy-config
+      volumes:
+        - name: privoxy-config
+          configMap:
+            name: ss-stack-config
+            items:
+              - key: privoxy.config
+                path: privoxy.config

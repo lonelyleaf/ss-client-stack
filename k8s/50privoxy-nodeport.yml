@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: privoxy-nodeport
+  namespace: ss-stack
+spec:
+  ports:
+    - name: privoxy-outsideport
+      port: 2080
+      targetPort: 2080
+      nodePort: 32080
+      protocol: TCP
+  selector:
+    app: privoxy
+  type: NodePort

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ss-stack-config
+  namespace: ss-stack
+data:
+  kcp.json: |-
+    {
+      "localaddr": ":8388",
+      "remoteaddr": "YOUR_SERVER_ADDR",
+      "mode": "fast2",
+      "conn": 1,
+      "autoexpire": 60,
+      "mtu": 1350,
+      "sndwnd": 1024,
+      "rcvwnd": 1024,
+      "datashard": 10,
+      "parityshard": 3,
+      "dscp": 0,
+      "nocomp": false,
+      "acknodelay": false,
+      "nodelay": 0,
+      "interval": 20,
+      "resend": 2,
+      "nc": 1,
+      "sockbuf": 4194304,
+      "keepalive": 10
+    }
+  privoxy.config: |-
+    forward-socks5 / ss-client:1080 .
+    listen-address 0.0.0.0:2080
+  sslocal.json: |-
+    {
+      "server": "kcptun",
+      "server_port": 8388,
+      "method": "chacha20",
+      "password": "YOUR_PASS",
+      "fast_open": false,
+      "local_address": "0.0.0.0",
+      "local_port": 1080,
+      "workers": 2
+    }
